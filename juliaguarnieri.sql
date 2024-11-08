@@ -88,3 +88,25 @@ INNER JOIN
     quartos q ON r.id_quarto = q.id_quarto
 WHERE 
     r.data_fim < CURRENT_DATE;
+
+/* 2. Consulta para listar todos os hóspedes, incluindo aqueles com reservas ativas e os que não possuem reserva */
+
+SELECT 
+    h.nome AS hospede,
+    q.numero_quarto AS quarto,
+    r.data_inicio,
+    r.data_fim,
+    CASE 
+        WHEN r.data_fim < CURRENT_DATE THEN 'Finalizada'
+        WHEN r.data_inicio <= CURRENT_DATE AND (r.data_fim >= CURRENT_DATE OR r.data_fim IS NULL) THEN 'Hospedado'
+        ELSE 'Sem reserva'
+    END AS status_estadia
+FROM 
+    hospedes h
+LEFT JOIN 
+    reservas r ON h.id_hospede = r.id_hospede
+LEFT JOIN 
+    quartos q ON r.id_quarto = q.id_quarto;
+
+    
+
