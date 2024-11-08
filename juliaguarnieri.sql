@@ -108,5 +108,17 @@ LEFT JOIN
 LEFT JOIN 
     quartos q ON r.id_quarto = q.id_quarto;
 
-    
+/*3. Consulta para mostrar apenas os quartos que não foram reservados*/
+
+SELECT 
+    q.numero_quarto AS quarto,
+    q.tipo AS tipo_quarto
+FROM 
+    quartos q
+LEFT JOIN 
+    reservas r ON q.id_quarto = r.id_quarto
+WHERE 
+    r.id_reserva IS NULL;
+
+
 
