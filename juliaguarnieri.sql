@@ -10,12 +10,14 @@ CREATE TABLE hospedes (
     nome TEXT NOT NULL,
     email VARCHAR(100)
 );
+
 CREATE TABLE quartos (
     id_quarto SERIAL PRIMARY KEY,
     numero_quarto INT NOT NULL,
     tipo VARCHAR(50) NOT NULL,
     preco_diaria DECIMAL(10,2)
 );
+
 CREATE TABLE reservas (
     id_reserva SERIAL PRIMARY KEY,
     id_hospede INT NOT NULL,
@@ -26,3 +28,48 @@ CREATE TABLE reservas (
     CONSTRAINT fk_quarto FOREIGN KEY (id_quarto) REFERENCES quartos(id_quarto),
     CONSTRAINT check_data_fim CHECK (data_fim IS NULL OR data_fim >= data_inicio)
 );
+
+/*Inserção de dados na tabela hospedes:*/
+
+INSERT INTO hospedes (nome, email) VALUES
+('Julia Guarnieri', 'juliaguarnieri@gmail.com'),
+('Caio Lacerda', 'caio@gmail.com'),
+('Luiza Nicolutti', 'luluni@gmail.com'),
+('Bernardo Moraes', 'ber123@gmail.com'),
+('Larissa Silva', 'larisi@gmail.com'),
+('Luciana Andrade', 'luandra@gmail.com'),
+('Marco Aurélio', 'marco@gmail.com'),
+('Ricardo Alvez', 'ricalvez@gmail.com'),
+('Miguel Rodrigues', 'miguelrodrigues@gmail.com'),
+('Lorenzo Rodrigues', 'rodrilore@gmail.com'); 
+
+/*Inserção de dados na tabela quartos:*/
+
+INSERT INTO quartos (numero_quarto, tipo, preco_diaria) VALUES
+(15, 'Solteiro', 100.00),
+(16, 'Casal', 150.00),
+(17, 'Família', 270.00),
+(18, 'Solteiro', 120.00),
+(19, 'Família', 220.00),
+(20, 'Solteiro', 180.00),
+(21, 'Casal', 350.00),
+(22, 'Família', 470.00),
+(23, 'Solteiro', 220.00),
+(24, 'Família', 230.00),
+(25, 'Solteiro', 300.00), 
+(26, 'Solteiro', 150.00);
+
+/*Inserção de dados na tabela reservas:*/
+
+INSERT INTO reservas (id_hospede, id_quarto, data_inicio, data_fim) VALUES
+(1, 1, '2023-02-03', '2023-02-10'),
+(2, 2, '2023-03-01', '2023-03-18'),
+(3, 8, '2023-06-13', '2023-06-15'),
+(4, 9, '2023-08-10', '2023-08-16'),
+(5, 3, '2024-10-01', '2024-12-01'),
+(6, 4, '2024-11-01', NULL),
+(7, 5, '2024-11-05', '2024-11-25'),
+(8, 6, '2024-11-10', NULL),
+(9, 7, '2024-11-12', NULL),
+(10, 10, '2024-11-15', '2024-11-22');
+
